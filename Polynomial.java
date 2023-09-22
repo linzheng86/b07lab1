@@ -10,18 +10,27 @@ public class Polynomial{
    }
  
    public Polynomial add(Polynomial x) {
+      int newlength = Math.max(this.coefficients.length, x.coefficients.length);
+      double[] newcoe = new double[newlength];
       if (this.coefficients.length >= x.coefficients.length) {
          for(int i = 0; i < x.coefficients.length; i++) {
-            this.coefficients[i] += x.coefficients[i];
+            newcoe[i] = this.coefficients[i] + x.coefficients[i];
          }
-         return new Polynomial(this.coefficients);
+         for(int j = x.coefficients.length; j < this.coefficients.length; j++)
+         {
+            newcoe[j] = this.coefficients[j];
+         }
       }
       else{
          for(int i = 0; i < this.coefficients.length; i++) {
-            x.coefficients[i] += this.coefficients[i];
+            newcoe[i] = x.coefficients[i] + this.coefficients[i];
          }
-         return new Polynomial(x.coefficients);
+         for(int j = this.coefficients.length; j < x.coefficients.length; j++)
+         {
+            newcoe[j] = x.coefficients[j];
+         }
       }
+      return new Polynomial(newcoe);
    }
  
 public double evaluate(double value) {
